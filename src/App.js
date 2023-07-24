@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Page404 from "./components/pages/Page404";
+import Habbit from "./components/pages/Habbit";
+import Report from "./components/pages/Report";
+import { useEffect } from "react";
+import {
+  actions,
+  getHabbits,
+  habbitSelector,
+} from "./components/redux/reducers/habbitReducer";
 
 function App() {
+  const dispatch = useDispatch();
+  const { success, error } = useSelector(habbitSelector);
+
+  useEffect(() => {
+    dispatch(getHabbits());
+  }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    } else if (success) {
+      toast.success(success);
+    }
+  }, [error, success]);
+
+  const browserRouter = createBrowserRouter([
+    {
+      path: "/",
+      errorElement: <Page404 />,
+      children: [
+        { index: true, element: <Habbit /> },
+        {
+          path: "weekly-report",
+          element: <Report />,
+        },
+      ],
+    },
+  ]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ToastContainer />
+      <RouterProvider router={browserRouter} />
     </div>
   );
 }
