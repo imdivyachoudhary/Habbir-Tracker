@@ -17,11 +17,17 @@ export const getHabbits = createAsyncThunk(
     try {
       let api_url = api_base_url + "/get-habbits";
       let res = await fetch(api_url);
-      res = await res.json();
-      console.log(res);
-      thunkAPI.dispatch(actions.setHabbits(res));
+      if(res.status===200){
+        res = await res.json();
+        console.log(res);
+        thunkAPI.dispatch(actions.setHabbits(res));
+        }else{
+          res = await res.json();
+          console.log(res);
+          thunkAPI.dispatch(actions.error(res.message));
+        }
     } catch (error) {
-      console.log(error.responseJSON.message);
+      // console.log(error.responseJSON.message);
       thunkAPI.dispatch(actions.error(error.responseJSON.message));
     }
   }
@@ -32,7 +38,6 @@ export const createHabbit = createAsyncThunk(
   async (payload, thunkAPI) => {
     thunkAPI.dispatch(actions.loading());
     try {
-      console.log("req body : ", JSON.stringify(payload));
       let api_url = api_base_url + "/create-habbit";
       let res = await fetch(api_url, {
         method: "post",
@@ -41,11 +46,17 @@ export const createHabbit = createAsyncThunk(
         },
         body: JSON.stringify(payload),
       });
+      if(res.status===200){
       res = await res.json();
       console.log(res);
       thunkAPI.dispatch(actions.addHabbit(res));
+      }else{
+        res = await res.json();
+        console.log(res);
+        thunkAPI.dispatch(actions.error(res.message));
+      }
     } catch (error) {
-      console.log(error.responseJSON.message);
+      // console.log(error.responseJSON.message);
       thunkAPI.dispatch(actions.error(error.responseJSON.message));
     }
   }
@@ -64,11 +75,17 @@ export const updateHabbitStatus = createAsyncThunk(
         },
         body: JSON.stringify(payload),
       });
-      res = await res.json();
-      console.log(res);
-      thunkAPI.dispatch(actions.updateHabbit(res));
+      if(res.status===200){
+        res = await res.json();
+        console.log(res);
+        thunkAPI.dispatch(actions.updateHabbit(res));
+        }else{
+          res = await res.json();
+          console.log(res);
+          thunkAPI.dispatch(actions.error(res.message));
+        }
     } catch (error) {
-      console.log(error.responseJSON.message);
+      // console.log(error.responseJSON.message);
       thunkAPI.dispatch(actions.error(error.responseJSON.message));
     }
   }
@@ -96,7 +113,8 @@ const habbitSlice = createSlice({
       // state.success = action.payload.message;
     },
     addHabbit: (state, action) => {
-      state.habbits = [action.payload, ...state.habbits];
+      console.log(action.payload);
+      state.habbits = [action.payload.data, ...state.habbits];
       state.isLoading = false;
       state.error = null;
       state.success = action.payload.message;
