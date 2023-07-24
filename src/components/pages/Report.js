@@ -40,9 +40,8 @@ function Report() {
           <button className="btn btn-primary back-btn">Back</button>
         </Link>
       </div>
-      {isLoading ? (
-        <Loader />
-      ) : habbits.length > 0 ? (
+      {isLoading && <Loader />}
+      {habbits.length > 0 && (
         <div className="weekly_report">
           <div className="report-table">
             <div className="row">
@@ -66,10 +65,11 @@ function Report() {
             ))}
           </div>
         </div>
-      ) : (
-        <p className="show-failure-message">
-          No Info Available!!!
-        </p>
+      )}
+      {!isLoading && habbits.length===0 && (
+      <p className="show-failure-message">
+        No Information Available!!!
+      </p>
       )}
     </>
   );
