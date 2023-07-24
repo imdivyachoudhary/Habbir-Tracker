@@ -6,8 +6,9 @@
 }
 
 p.show-failure-message {
+  margin-top: 50px;
   color: gray;
   text-align: center;
   font-size: 2rem;
-  display: none;
+  /* display: none; */
 }

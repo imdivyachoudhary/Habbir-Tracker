@@ -36,10 +36,13 @@ function Report() {
       <div className="report-header">
         <h1>WEEKLY REPORT</h1>
 
-        <Link to="/"><button className="btn btn-primary back-btn">Back</button></Link>
+        <Link to="/">
+          <button className="btn btn-primary back-btn">Back</button>
+        </Link>
       </div>
-      {isLoading && (<Loader />)}
-      {habbits.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : habbits.length > 0 ? (
         <div className="weekly_report">
           <div className="report-table">
             <div className="row">
@@ -65,7 +68,7 @@ function Report() {
         </div>
       ) : (
         <p className="show-failure-message">
-          Nothing To Show!!! <br /> Add Habbits{" "}
+          No Info Available!!!
         </p>
       )}
     </>

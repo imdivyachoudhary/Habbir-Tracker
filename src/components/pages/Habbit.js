@@ -11,8 +11,9 @@ function Habbit() {
   return (
     <>
       <HabbitForm />
-      {isLoading && (<Loader />)}
-      {habbits.length > 0 ? (
+      {isLoading ? (
+        <Loader />
+      ) : habbits.length > 0 ? (
         <>
           <div className="weekly-report-link" id="weekly-report-link">
             <div className="link">
@@ -23,7 +24,7 @@ function Habbit() {
         </>
       ) : (
         <p className="show-failure-message">
-          Nothing To Show!!! <br /> Add Habbits{" "}
+          Nothing To Show!!! <br /> Add Habbits
         </p>
       )}
     </>
