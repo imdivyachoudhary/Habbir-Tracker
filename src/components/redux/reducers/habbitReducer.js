@@ -8,7 +8,7 @@ const initialState = {
 };
 
 // const api_base_url = "http://localhost:8000/api";
-const api_base_url = "https://habbit-tracker-kaat.onrender.com/api";
+const api_base_url = "https://habbit-tracker-nodejs.onrender.com/api";
 
 export const getHabbits = createAsyncThunk(
   "habbit/getReport",
