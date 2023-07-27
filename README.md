@@ -1,6 +1,7 @@
 # Habbit-Tracker
 
-Add Habbits, Update their status and Weekly report.
+A simple habbit tracker application to keep track of weekly report of you habbits.
+
 - Add multiple habits.
 - Track each habit everyday. These are the 3 statuses of a habit:
   - Done - Mark the habit as done for a day
